@@ -28,6 +28,7 @@ source-repository head
 library
   exposed-modules:
       Lib
+      Arrn
   other-modules:
       Paths_FuncProg2_Stepic
   hs-source-dirs:
@@ -53,6 +54,7 @@ test-suite FuncProg2-Stepic-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      ArrnSpec
       Paths_FuncProg2_Stepic
   hs-source-dirs:
       test
