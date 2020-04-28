@@ -30,6 +30,7 @@ library
       Lib
       Arrn
       Triple
+      ZipListUtils
   other-modules:
       Paths_FuncProg2_Stepic
   hs-source-dirs:
@@ -57,6 +58,7 @@ test-suite FuncProg2-Stepic-test
   other-modules:
       ArrnSpec
       TripleSpec
+      ZipListUtilsSpec
       Paths_FuncProg2_Stepic
   hs-source-dirs:
       test
