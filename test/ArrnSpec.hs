@@ -7,7 +7,8 @@ import Test.Hspec
 
 spec :: Spec
 spec = 
-  describe "Prog 1.1.1 - instance Functor Arr2 and Arr3 " $ do
+  describe "Prog 1.1.1 - instance Functor Arr2 and Arr3 " $
+  do
     it "Arr2 is Functor" $
       getArr2 (fmap length (Arr2 take)) 10 "abc"
         `shouldBe` 3
