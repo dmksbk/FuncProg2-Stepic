@@ -1,8 +1,8 @@
 module Main where
 
 import Lib
-import Arrn
-import Data.String
+import qualified ApplicativeUtils
 
 main :: IO ()
-main = someFunc
+--main = print "hi"
+main = ApplicativeUtils.check
