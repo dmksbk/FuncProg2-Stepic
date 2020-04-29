@@ -3,6 +3,8 @@ module ApplicativeUtils where
 
 import Control.Applicative (ZipList(..), liftA2)
 import Data.Char
+import Data.List
+import Text.Layout.Table
 
 --Двойственный оператор аппликации (<**>) из модуля Control.Applicative изменяет направление вычислений, не меняя порядок эффектов:
 infixl 4 <**>
@@ -60,6 +62,14 @@ exprEnv op =
   in (ord . head) <??> ((+) . length)  -- NO
   -- in length <??> (\_ -> (+5))  -- place for counterexample
 
+-- Достаточно подумать где эффекты некоммутативны:
+--  - для списков эффект это прямое произведение, оно меняет порядок элементов в упорядоченных парах
+--  - для Monoid a => (,) a это mappend, зависит от коммутативности отдельно взятого mappend'а, но для строк это конкатенация и она некоммутативна если один из элементов непустая строка
+--  - и наконец для Either e эффект это пропагация ошибки e, некоммутативна, если ошибки различны,
+--  - отсюда кстати ясно почему Maybe коммутативен -- у него ошибки (отсутствующее значение) неразличимы.
+--  - Эффект ZipList -- длина списка становится минимальной среди всех учавствующих в эффекте списков, коммутативен за счёт коммутативности минимума.
+--  - А эффект стрелки с окружением это просто протаскивание стрелки с окружением всем элементам, понять коммутативность тут сложнее, но она интуитивно ощущается за счёт того что всюду окружение передается одно и то же, т.е. без изменений, а значит этот эффект можно применять в любом порядке.
+
 f :: Int -> String -> String
 f n str  =
   let l  = length str
@@ -75,8 +85,27 @@ tw = cw * cc + cc - 1 -- Table Width
 --f' :: Show s => s -> String
 f' = f cw
 
+csi :: [Int] -> String -> String
+csi args code = "\ESC[" ++ intercalate ";" (map show args) ++ code
+clearScreen = putStr $ csi [2] "J"
+
+res :: String
+res = tableString
+       [def , def, def]
+       asciiRoundS
+       (titlesH ["expr", "<**>", "<*?>"])
+       [ rowG ["exprMaybe", show $ exprMaybe (<**>), show $ exprMaybe (<*?>)]
+       , rowG ["exprList", show $ exprList (<**>), show $ exprList (<*?>)]
+       , rowG ["exprZipList", show . getZipList $ exprZipList (<**>), show . getZipList $ exprZipList (<*?>)]
+       , rowG ["exprEither", show $ exprEither (<**>), show $ exprEither (<*?>)]
+       , rowG ["exprPair", show $ exprPair (<**>), show $ exprPair (<*?>)]
+       , rowG ["exprEnv \"Hello\"", show $ exprEnv (<**>) "Hello", show $ exprEnv (<*?>) "Hello"]
+       ]
+
 check :: IO()
 check = do
+  clearScreen
+  putStrLn ""
   putStrLn $ f tw "Prog 1.2.4 - results for ApplicativeUtils"
   putStrLn $ replicate tw '='
   putStrLn $ f' "expr" ++ "|" ++ f' "<**>" ++ "|" ++ f' "<*?>"
@@ -100,3 +129,5 @@ check = do
           ++ f' (show $ exprEnv (<**>) "Hello") ++ "|"
           ++ f' (show $ exprEnv (<*?>) "Hello")
   putStrLn $ replicate tw '-'
+  putStrLn ""
+  putStr res
