@@ -3,7 +3,7 @@ module PrsE where
 --Рассмотрим более продвинутый парсер, позволяющий возвращать пользователю причину неудачи при синтаксическом разборе:
 newtype PrsE a = PrsE { runPrsE :: String -> Either String (a, String) }
 
---Реализуйте функцию satisfyE :: (Char -> Bool) -> PrsE Char таким образом, чтобы функция
+-- Prog 1.4.3 - Реализуйте функцию satisfyE :: (Char -> Bool) -> PrsE Char таким образом, чтобы функция
 charE :: Char -> PrsE Char
 charE c = satisfyE (== c)
 
@@ -20,3 +20,20 @@ satisfyE p = PrsE go where
 --  GHCi> runPrsE (charE 'A') ""
 --  Left "unexpected end of input"
 
+-- Prog 1.4.4 - Applicative PrsE
+-- Сделайте парсер PrsE из предыдущей задачи функтором и аппликативным функтором:
+instance Functor PrsE where
+  fmap f prs = PrsE go where
+    go s = case runPrsE prs s of
+      Left e -> Left e
+      Right (v, xs) -> Right (f v, xs)
+
+instance Applicative PrsE where
+  pure v = PrsE go where
+    go s = Right (v, s)
+  fp <*> vp = PrsE go where
+    go s = case runPrsE fp s of
+      Left e -> Left e
+      Right (f, s') -> case runPrsE vp s' of
+        Left e -> Left e
+        Right (v, s'') -> Right (f v, s'')
