@@ -33,6 +33,7 @@ library
       ZipListUtils
       DivideList
       ApplicativeUtils
+      Prs
   other-modules:
       Paths_FuncProg2_Stepic
   hs-source-dirs:
@@ -64,6 +65,7 @@ test-suite FuncProg2-Stepic-test
       ZipListUtilsSpec
       DivideListSpec
       ApplicativeUtilsSpec
+      PrsSpec
       Paths_FuncProg2_Stepic
   hs-source-dirs:
       test
