@@ -1,5 +1,8 @@
 module Prs where
 
+import Control.Applicative (Alternative(..))
+import Data.Maybe (isJust)
+
 -- Предположим, тип парсера определен следующим образом:
 newtype Prs a = Prs { runPrs :: String -> Maybe (a, String) }
 
@@ -43,3 +46,22 @@ instance Applicative Prs where
 --            | (f, s')    <- runPrs fp s
 --            , (v, s'')   <- runPrs vp s'
 --            ]
+
+-- Prog 1.4.5
+-- Сделайте парсер Prs представителем класса типов Alternative с естественной для парсера семантикой:
+ --Представители для классов типов Functor и Applicative уже реализованы. Функцию char :: Char -> Prs Char включать в решение не нужно, но полезно реализовать для локального тестирования.
+ 
+instance Alternative Prs where
+  empty = Prs (const Nothing)
+  pa <|> pb = Prs go where
+    go s = 
+      let ra = runPrs pa s
+      in if isJust ra then ra else runPrs pb s
+
+satisfy :: (Char -> Bool) -> Prs Char
+satisfy p = Prs go where
+  go []     = Nothing
+  go (x:xs) = if p x then Just (x, xs) else Nothing
+
+char :: Char -> Prs Char
+char = satisfy . (==)

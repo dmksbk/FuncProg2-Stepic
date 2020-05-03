@@ -3,6 +3,7 @@ module PrsSpec where
 import Test.Hspec
 import Prs
 import Data.Char (digitToInt)
+import Control.Applicative((<|>))
 
 spec :: Spec
 spec = do
@@ -23,3 +24,15 @@ spec = do
       it "Parse 2 chars, ignoring first one" $
         runPrs (anyChr *> anyChr) "ABCDE"
           `shouldBe` Just ('B',"CDE")
+  
+  describe "prog 1.4.5 - Alternative Prs" $
+    do
+      it "A|B on ABC" $
+        runPrs (char 'A' <|> char 'B') "ABC"
+          `shouldBe` Just ('A',"BC")
+      it "A|B on BCD" $
+        runPrs (char 'A' <|> char 'B') "BCD"
+          `shouldBe` Just ('B',"CD")
+      it "A|B on CDE" $
+        runPrs (char 'A' <|> char 'B') "CDE"
+          `shouldBe` Nothing
