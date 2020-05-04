@@ -25,7 +25,7 @@ spec = do
         runPrs (anyChr *> anyChr) "ABCDE"
           `shouldBe` Just ('B',"CDE")
   
-  describe "prog 1.4.5 - Alternative Prs" $
+  describe "Prog 1.4.5 - Alternative Prs" $
     do
       it "A|B on ABC" $
         runPrs (char 'A' <|> char 'B') "ABC"
@@ -35,4 +35,12 @@ spec = do
           `shouldBe` Just ('B',"CD")
       it "A|B on CDE" $
         runPrs (char 'A' <|> char 'B') "CDE"
+          `shouldBe` Nothing
+  describe "Prog 1.4.6 - many and many1 for Prs" $
+    do
+      it "many1 on \"AAABCDE\"" $
+        runPrs (many1 $ char 'A') "AAABCDE"
+           `shouldBe` Just ("AAA","BCDE")
+      it "many1 on \"BCDE\"" $
+        runPrs (many1 $ char 'A') "BCDE"
           `shouldBe` Nothing

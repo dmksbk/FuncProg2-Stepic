@@ -1,6 +1,6 @@
 module Prs where
 
-import Control.Applicative (Alternative(..))
+import Control.Applicative (Alternative, empty, (<|>))
 import Data.Maybe (isJust)
 
 -- Предположим, тип парсера определен следующим образом:
@@ -65,3 +65,12 @@ satisfy p = Prs go where
 
 char :: Char -> Prs Char
 char = satisfy . (==)
+
+-- Prog 1.4.6
+-- Реализуйте для парсера Prs парсер-комбинатор many1 :: Prs a -> Prs [a], который отличается от many только тем, что он терпит неудачу в случае, когда парсер-аргумент неудачен на начале входной строки. Функцию char :: Char -> Prs Char включать в решение не нужно, но полезно реализовать для локального тестирования.
+
+many :: Prs a -> Prs [a]
+many p = (:) <$> p <*> many p <|> pure []
+
+many1 :: Prs a -> Prs [a]
+many1 p = (:) <$> p <*> (many1 p <|> pure [])
