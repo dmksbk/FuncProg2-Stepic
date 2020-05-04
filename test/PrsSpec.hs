@@ -44,3 +44,18 @@ spec = do
       it "many1 on \"BCDE\"" $
         runPrs (many1 $ char 'A') "BCDE"
           `shouldBe` Nothing
+  
+  describe "Prog 1.4.7 - mul and nat parser for Prs" $
+    do
+      it "14 * 3 = 42" $
+        runPrs mult "14*3"
+           `shouldBe` Just (42,"")
+      it "64 * 32 = 2048" $
+        runPrs mult "64*32"
+          `shouldBe` Just (2048,"")
+      it "77 * 0 = 0" $
+        runPrs mult "77*0"
+          `shouldBe` Just (0,"")
+      it "2 * 77 = 154" $
+        runPrs mult "2*77AAA"
+          `shouldBe` Just (154,"AAA")

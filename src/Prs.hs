@@ -74,3 +74,17 @@ many p = (:) <$> p <*> many p <|> pure []
 
 many1 :: Prs a -> Prs [a]
 many1 p = (:) <$> p <*> (many1 p <|> pure [])
+
+digit :: Prs Char
+digit = satisfy (`elem` "0123456789")
+
+-- Prog 1.4.7 mul parser for Prs
+-- Реализуйте парсер nat :: Prs Int для натуральных чисел, так чтобы парсер
+mult :: Prs Int
+mult = (*) <$> nat <* char '*' <*> nat
+   --обладал таким поведением (см. PrsSpec)
+
+nat :: Prs Int
+nat = read <$> many1 digit where
+
+--Реализацию функции char :: Char -> Prs Char следует включить в присылаемое решение, только если она нужна для реализации парсера nat.
