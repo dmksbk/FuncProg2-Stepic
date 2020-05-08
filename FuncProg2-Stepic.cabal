@@ -35,6 +35,7 @@ library
       ApplicativeUtils
       Prs
       PrsE
+      Cmps3
   other-modules:
       Paths_FuncProg2_Stepic
   hs-source-dirs:
@@ -68,6 +69,7 @@ test-suite FuncProg2-Stepic-test
       ApplicativeUtilsSpec
       PrsSpec
       PrsESpec
+      Cmps3Spec
       Paths_FuncProg2_Stepic
   hs-source-dirs:
       test
