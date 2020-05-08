@@ -12,7 +12,7 @@ spec = do
       $          getArr2 (fmap length (Arr2 take)) 10 "abc"
       `shouldBe` 3
     it "Arr3 is Functor"
-      $          getArr3 (tail <$> tail <$> Arr3 zipWith)
+      $          getArr3 (tail . tail <$> Arr3 zipWith)
                          (+)
                          [1, 2, 3, 4]
                          [10, 20, 30, 40, 50]
