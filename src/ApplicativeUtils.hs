@@ -91,7 +91,7 @@ clearScreen = putStr $ csi [2] "J"
 
 res :: String
 res = tableString
-       [def , def, def]
+       [def, def, def]
        asciiRoundS
        (titlesH ["expr", "<**>", "<*?>"])
        [ rowG ["exprMaybe", show $ exprMaybe (<**>), show $ exprMaybe (<*?>)]
@@ -130,4 +130,4 @@ check = do
           ++ f' (show $ exprEnv (<*?>) "Hello")
   putStrLn $ replicate tw '-'
   putStrLn ""
-  putStr res
+  putStrLn res
