@@ -17,7 +17,8 @@
 #
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
-resolver: lts-15.9
+# resolver: lts-16.5
+resolver: nightly-2019-09-21
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -44,6 +45,7 @@ extra-deps:
   - git: https://github.com/muesli4/table-layout.git
     commit: f243821a3e5c5935903bb03fee1992c6109be3c2
   - data-default-instances-base-0.1.0.1@sha256:985a13d7103e45a65f06f277b735ef025636014f0d29dd6de998bc7628e09be9,509
+  # - MissingH-1.4.3.0@sha256:7136282773f7b3e7ce3af856b41dde98a04f9b03c51813c98d040fc060dcaa53,4650
 #  - ansi-terminal-0.5.0
 
 # Override default flag values for local packages and extra-deps

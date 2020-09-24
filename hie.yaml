@@ -1,8 +1,0 @@
-cradle:
-  stack:
-    - path: "./test"
-      component: "FuncProg2-Stepic:test:FuncProg2-Stepic-test"
-    - path: "./src"
-      component: "FuncProg2-Stepic:lib"
-    - path: "./app"
-      component: "FuncProg2-Stepic:exe:FuncProg2-Stepic-exe"
