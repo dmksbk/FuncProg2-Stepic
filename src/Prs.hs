@@ -85,6 +85,6 @@ mult = (*) <$> nat <* char '*' <*> nat
    --обладал таким поведением (см. PrsSpec)
 
 nat :: Prs Int
-nat = read <$> many1 digit where
+nat = read <$> many1 digit
 
 --Реализацию функции char :: Char -> Prs Char следует включить в присылаемое решение, только если она нужна для реализации парсера nat.

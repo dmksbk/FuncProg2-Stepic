@@ -19,7 +19,7 @@
 # resolver: https://example.com/snapshots/2018-01-01.yaml
 # resolver: lts-16.5
 # resolver: nightly-2019-09-21
-resolver: lts-16.6
+resolver: lts-16.16
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -46,6 +46,11 @@ extra-deps:
   - git: https://github.com/muesli4/table-layout.git
     commit: f243821a3e5c5935903bb03fee1992c6109be3c2
   - data-default-instances-base-0.1.0.1@sha256:985a13d7103e45a65f06f277b735ef025636014f0d29dd6de998bc7628e09be9,509
+  - fuzzy-0.1.0.0@sha256:123b9581c587ae5422b67bbad7e81186b1ecbf86941a8049f921ddf136f2234e,833
+  - ghc-check-0.3.0.1@sha256:651d9b2b75a5cbdb3c942117801bfa566079bcaf20360e4d0959f9e575c30b39,1070
+  - hie-bios-0.5.1@sha256:7f484b18d1e68354bc1103f883d638b0018d3a089611c64fd664efa08942fe8d,8712
+  - implicit-hie-0.1.1.0@sha256:1dfe45e720e5f782753704a7ac9b1f3234047f4a4e70a9028840e9399f51d557,2841
+  - implicit-hie-cradle-0.2.0.1@sha256:c6892ef9c16ba1e19f497a119c039a5845f46b93dd67538f37d4c002b222d4c1,2568
   # - MissingH-1.4.3.0@sha256:7136282773f7b3e7ce3af856b41dde98a04f9b03c51813c98d040fc060dcaa53,4650
 #  - ansi-terminal-0.5.0
 

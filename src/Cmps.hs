@@ -16,9 +16,9 @@ instance (Applicative f, Applicative g) => Applicative (f |.| g) where
 
 -- Prog 1.5.3 - Напишите универсальные функции, позволяющие избавляться от синтаксического шума для композиции нескольких функторов:
 
--- unCmps3 :: Functor f => (f |.| g |.| h) a -> f (g (h a))
--- unCmps3 = fmap getCmps . fmap getCmps . fmap getCmps
+unCmps3 :: Functor f => (f |.| g |.| h) a -> f (g (h a))
+unCmps3 = fmap getCmps . getCmps
 
--- unCmps4
---   :: (Functor f2, Functor f1) => (f2 |.| f1 |.| g |.| h) a -> f2 (f1 (g (h a)))
--- unCmps4 = error "unCmps4 is not defined yet"
+unCmps4 :: (Functor f2, Functor f1) => (f2 |.| f1 |.| g |.| h) a -> f2 (f1 (g (h a)))
+-- unCmps4 = fmap (fmap getCmps) . fmap getCmps . getCmps
+unCmps4 = fmap (fmap getCmps . getCmps) . getCmps
