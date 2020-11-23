@@ -25,3 +25,8 @@ spec =
     it "[[[[42]]]]" $
       unCmps4 (pure 42 :: ([] |.| [] |.| [] |.| []) Int)
         `shouldBe` [[[[42 :: Int]]]]
+    
+    -- My cases from course videos
+    it "Applicative Cmps case" $
+      Cmps [Just (+1), Just (+2)] <*> Cmps [Just 30, Just 40]
+        `shouldBe` Cmps [Just 31, Just 41, Just 32, Just 42]
