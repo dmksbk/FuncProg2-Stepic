@@ -8,6 +8,12 @@ spec = do
   describe "Prog 2.1.5 - Foldable Tree" $
     do
       let tree = Branch (Branch Nil 1 (Branch Nil 2 Nil)) 3 (Branch Nil 4 Nil)
+    --   Tree structure:
+    --       3
+    --     /   \
+    --    1     4
+    --     \
+    --       2
       it "In-order fold" $
         foldr (:) [] tree `shouldBe` [1,2,3,4]
         
