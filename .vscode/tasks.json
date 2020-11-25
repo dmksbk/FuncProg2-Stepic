@@ -9,25 +9,43 @@
   },
   "tasks": [
     {
-      // F7
       "group": {
         "kind": "build",
         "isDefault": true
       },
       "label": "stack build",
       "type": "shell",
-      "command": "stack build"
+      "command": "stack build",
+      "problemMatcher": []
     },
     {
-      // F6
       "group": "build",
       "type": "shell",
       "label": "stack clean & build",
-      "command": "stack clean && stack build"
-      //"command": "stack clean ; stack build"  // for powershell
+      "command": "stack clean & stack build",
+      "problemMatcher": [
+        "$eslint-compact"
+      ]
     },
     {
-      // F8
+      "group": "test",
+      "type": "shell",
+      "label": "stack run",
+      "command": "stack run",
+      "problemMatcher": [
+        "$eslint-compact"
+      ]
+    },
+    {
+      "group": "test",
+      "type": "shell",
+      "label": "REPL",
+      "command": "stack repl",
+      "problemMatcher": [
+        "$eslint-compact"
+      ]
+    },
+    {
       "group": {
         "kind": "test",
         "isDefault": true
@@ -37,11 +55,13 @@
       "command": "stack test"
     },
     {
-      // F6
       "isBackground": true,
       "type": "shell",
       "label": "stack watch",
-      "command": "stack build --test --no-run-tests --file-watch"
+      // "command": "stack build --test --no-run-tests --file-watch",
+      "command": "stack build --test --file-watch",
+      "problemMatcher": [],
+      "group": "build"
     }
   ]
 }
