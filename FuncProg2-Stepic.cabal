@@ -37,6 +37,7 @@ library
       PrsE
       Cmps3
       Cmps
+      Tree
   other-modules:
       Paths_FuncProg2_Stepic
   hs-source-dirs:
@@ -72,6 +73,7 @@ test-suite FuncProg2-Stepic-test
       PrsESpec
       Cmps3Spec
       CmpsSpec
+      TreeSpec
       Paths_FuncProg2_Stepic
   hs-source-dirs:
       test
