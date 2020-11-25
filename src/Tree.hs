@@ -50,5 +50,5 @@ getLevels bs = roots : getLevels sibls where
   sibls = bs' >>= getSibls
 
 instance Foldable Levelorder where
-  foldr _ ini (LevelO Nil)            = ini
-  foldr f ini (LevelO b@(Branch _ _ _)) = foldr f ini . concat . getLevels $ [b]
+  foldr _ ini (LevelO Nil) = ini
+  foldr f ini (LevelO b)   = foldr f ini . concat . getLevels $ [b]
