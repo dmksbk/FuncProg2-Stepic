@@ -1,19 +1,21 @@
-
 {
   // Automatically created by phoityne-vscode extension.
+  // Tasks definition: https://code.visualstudio.com/docs/editor/tasks
+  // Variable reference: https://code.visualstudio.com/docs/editor/variables-reference
 
   "version": "2.0.0",
   "presentation": {
     "reveal": "always",
     "panel": "new"
   },
+  // ======== BUILD ========
   "tasks": [
     {
       "group": {
         "kind": "build",
         "isDefault": true
       },
-      "label": "stack build",
+      "label": "stack BUILD",
       "type": "shell",
       "command": "stack build",
       "problemMatcher": []
@@ -21,17 +23,26 @@
     {
       "group": "build",
       "type": "shell",
-      "label": "stack clean & build",
+      "label": "stack CLEAN & BUILD",
       "command": "stack clean & stack build",
       "problemMatcher": [
         "$eslint-compact"
       ]
     },
+      // ======== RUN ========
     {
       "group": "test",
       "type": "shell",
-      "label": "stack run",
+      "label": "stack RUN Main module",
       "command": "stack run",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      },
       "problemMatcher": [
         "$eslint-compact"
       ]
@@ -39,12 +50,58 @@
     {
       "group": "test",
       "type": "shell",
-      "label": "REPL",
-      "command": "stack repl",
+      "label": "stack RUN main function in current module",
+      "command": "stack --resolver lts-16.16 script ${relativeFileDirname}/${fileBasename}",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      },
       "problemMatcher": [
         "$eslint-compact"
       ]
     },
+
+
+    // ======== REPL ========
+    {
+      "group": "test",
+      "type": "shell",
+      "label": "stack REPL",
+      "command": "stack repl",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": [
+        "$eslint-compact"
+      ]
+    },
+    {
+      "group": "test",
+      "type": "shell",
+      "label": "stack REPL current file",
+      "command": "stack repl ${relativeFileDirname}/${fileBasename}",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": [
+        "$eslint-compact"
+      ]
+    },
+      // ======== TEST ========
     {
       "group": {
         "kind": "test",
@@ -58,7 +115,6 @@
       "isBackground": true,
       "type": "shell",
       "label": "stack watch",
-      // "command": "stack build --test --no-run-tests --file-watch",
       "command": "stack build --test --file-watch",
       "problemMatcher": [],
       "group": "build"
