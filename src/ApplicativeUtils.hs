@@ -104,30 +104,30 @@ res = tableString
 
 check :: IO()
 check = do
-  clearScreen
+  -- clearScreen  -- Dosen't work with my screen
   putStrLn ""
   putStrLn $ f tw "Prog 1.2.4 - results for ApplicativeUtils"
-  putStrLn $ replicate tw '='
-  putStrLn $ f' "expr" ++ "|" ++ f' "<**>" ++ "|" ++ f' "<*?>"
-  putStrLn $ replicate tw '-'
-  putStrLn $ f' "exprMaybe" ++ "|"
-          ++ f' (show $ exprMaybe (<**>)) ++ "|"
+  putStrLn $ replicate tw '═' 
+  putStrLn $ f' "expr" ++ "│" ++ f' "<**>" ++ "│" ++ f' "<*?>"
+  putStrLn $ replicate tw '─'
+  putStrLn $ f' "exprMaybe" ++ "│"
+          ++ f' (show $ exprMaybe (<**>)) ++ "│"
           ++ f' (show $ exprMaybe (<*?>))
-  putStrLn $ f' "exprList" ++ "|"
-          ++ f' (show $ exprList (<**>)) ++ "|"
+  putStrLn $ f' "exprList" ++ "│"
+          ++ f' (show $ exprList (<**>)) ++ "│"
           ++ f' (show $ exprList (<*?>))
-  putStrLn $ f' "exprZipList" ++ "|"
-          ++ f' (show . getZipList $ exprZipList (<**>)) ++ "|"
+  putStrLn $ f' "exprZipList" ++ "│"
+          ++ f' (show . getZipList $ exprZipList (<**>)) ++ "│"
           ++ f' (show . getZipList $ exprZipList (<*?>))
-  putStrLn $ f' "exprEither" ++ "|"
-          ++ f' (show $ exprEither (<**>)) ++ "|"
+  putStrLn $ f' "exprEither" ++ "│"
+          ++ f' (show $ exprEither (<**>)) ++ "│"
           ++ f' (show $ exprEither (<*?>))
-  putStrLn $ f' "exprPair" ++ "|"
-          ++ f' (show $ exprPair (<**>)) ++ "|"
+  putStrLn $ f' "exprPair" ++ "│"
+          ++ f' (show $ exprPair (<**>)) ++ "│"
           ++ f' (show $ exprPair (<*?>))
-  putStrLn $ f' "exprEnv \"Hello\" " ++ "|"
-          ++ f' (show $ exprEnv (<**>) "Hello") ++ "|"
+  putStrLn $ f' "exprEnv \"Hello\" " ++ "│"
+          ++ f' (show $ exprEnv (<**>) "Hello") ++ "│"
           ++ f' (show $ exprEnv (<*?>) "Hello")
-  putStrLn $ replicate tw '-'
+  putStrLn $ replicate tw '═'
   putStrLn ""
-  putStrLn res
+  -- putStrLn res
