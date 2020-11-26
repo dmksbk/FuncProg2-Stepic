@@ -1,0 +1,34 @@
+
+-- ======== SET PROMPT ========
+:set prompt  "\x03BB: > "
+-- :set prompt "\Esc[1;34m %s \n \Esc[0;34m \x03BB: > \Esc[m"
+:set prompt-cont  "   | "
+
+-- ======== GHCi OPTIONS ========
+
+-- Enable parsing of multiline commands. A multiline command is prompted for when the current input line contains open layout contexts
+-- :set +m
+
+-- Display some stats after evaluating each expression, including the elapsed time and number of bytes allocated. NOTE: the allocation figure is only accurate to the size of the storage manager's allocation area, because it is calculated at every GC. Hence, you might see values of zero if no GC has occurred.
+-- :unset +s
+
+-- Normally, any evaluation of top-level expressions (otherwise known as CAFs or Constant Applicative Forms) in loaded modules is retained between evaluations. Turning on +r causes all evaluation of top-level expressions to be discarded after each evaluation (they are still retained during a single evaluation).
+-- :unset +r
+
+-- Display the type of each variable bound after a statement is entered at the prompt. If the statement is a single expression, then the only variable binding will be for the variable ‘it’.
+-- :unset +t
+
+-- ======== SET SOME LANGUAGE EXTENSIONS ========
+
+-- OverloadedStrings is often useful.
+-- :seti -XOverloadedStrings
+
+-- Scoped type variables is often useful so we can specify the types
+-- of variables (for example, in lambda expressions).
+-- :seti -XScopedTypeVariables
+
+-- useful for import from specified package
+-- :seti -XPackageImports
+
+-- Also use type operators
+-- :seti -XTypeOperators
