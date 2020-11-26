@@ -38,6 +38,7 @@ library
       Cmps3
       Cmps
       Tree
+      FoldableUtils
   other-modules:
       Paths_FuncProg2_Stepic
   hs-source-dirs:
