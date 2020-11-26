@@ -39,6 +39,7 @@ library
       Cmps
       Tree
       FoldableUtils
+      EndoUtils
   other-modules:
       Paths_FuncProg2_Stepic
   hs-source-dirs:
