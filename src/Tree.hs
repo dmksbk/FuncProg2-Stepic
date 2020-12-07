@@ -62,7 +62,7 @@ instance Functor Tree where
   fmap f Nil = Nil
   fmap f (Branch l c r) = Branch (fmap f l) (f c) (fmap f r)
 
--- And Applicative Functor operating as ZipList
+-- And Applicative Functor operating as a ZipList
 instance Applicative Tree where
   -- pure creates infinite tree
   pure v = Branch (pure v) v (pure v)
