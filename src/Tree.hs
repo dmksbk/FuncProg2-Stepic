@@ -1,5 +1,7 @@
 module Tree where
 
+import Data.Foldable
+
 -- Для реализации свертки двоичных деревьев нужно выбрать алгоритм обхода узлов дерева (см., например, http://en.wikipedia.org/wiki/Tree_traversal).
 -- Сделайте двоичное дерево представителем класса типов Foldable, реализовав симметричную стратегию (in-order traversal). Реализуйте также три другие стандартные стратегии (pre-order traversal, post-order traversal и level-order traversal), сделав типы-обертки представителями класса Foldable.
 
@@ -52,3 +54,21 @@ getLevels bs = roots : getLevels sibls where
 instance Foldable Levelorder where
   foldr _ ini (LevelO Nil) = ini
   foldr f ini (LevelO b)   = foldr f ini . concat . getLevels $ [b]
+
+instance Functor Tree where
+  fmap _ Nil = Nil
+  fmap f (Branch l c r) = Branch (f <$> l) (f c) (f <$> r)
+
+instance Functor Preorder where
+  fmap f (PreO t) = PreO (f <$> t) 
+
+-- Prog 2.2.3
+-- Предположим для двоичного дерева Tree реализован представитель класса типов Foldable, обеспечивающий стратегию обхода pre-order traversal. Какую строку вернет следующий вызов
+
+  -- GHCi> tree = Branch (Branch Nil 1 Nil) 2 (Branch (Branch Nil 3 Nil) 4 (Branch Nil 5 Nil))
+  -- GHCi> fst $ sequenceA_ $ (\x -> (show x,x)) <$> tree
+
+tree :: Preorder Integer
+tree = PreO $ Branch (Branch Nil 1 Nil) 2 (Branch (Branch Nil 3 Nil) 4 (Branch Nil 5 Nil))
+res223 :: String
+res223 = fst $ sequenceA_ $ (\x -> (show x,x)) <$> tree
