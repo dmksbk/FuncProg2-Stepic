@@ -3,7 +3,8 @@ module Tree where
 -- Для реализации свертки двоичных деревьев нужно выбрать алгоритм обхода узлов дерева (см., например, http://en.wikipedia.org/wiki/Tree_traversal).
 -- Сделайте двоичное дерево представителем класса типов Foldable, реализовав симметричную стратегию (in-order traversal). Реализуйте также три другие стандартные стратегии (pre-order traversal, post-order traversal и level-order traversal), сделав типы-обертки представителями класса Foldable.
 
-data Tree a = Nil | Branch (Tree a) a (Tree a)   deriving (Eq, Show)
+data Tree a = Nil | Branch (Tree a) a (Tree a)
+  deriving (Eq, Show)
 
 newtype Preorder a   = PreO   (Tree a)    deriving (Eq, Show)
 newtype Postorder a  = PostO  (Tree a)    deriving (Eq, Show)
@@ -52,3 +53,68 @@ getLevels bs = roots : getLevels sibls where
 instance Foldable Levelorder where
   foldr _ ini (LevelO Nil) = ini
   foldr f ini (LevelO b)   = foldr f ini . concat . getLevels $ [b]
+
+-- Try to draw tree - show it as a tree
+-- First, make Tree a Functor
+instance Functor Tree where
+  fmap f Nil = Nil
+  fmap f (Branch l c r) = Branch (fmap f l) (f c) (fmap f r)
+
+-- And Applicative Functor operating as ZipList
+instance Applicative Tree where
+  -- pure creates infinite tree
+  pure v = Branch (pure v) v (pure v)
+  -- But <*> will cut infinite trees if left or right is finite
+  Nil             <*> _               = Nil
+  _               <*> Nil             = Nil
+  Branch fl fc fr <*> Branch vl vc vr = Branch (fl <*> vl) (fc vc) (fr <*> vr)
+
+data TreeSymbols = TS {
+  lTerm :: Char, rTerm :: Char,
+  bTerm :: Char,
+  hBar  :: Char, vBar  :: Char,
+  lCor  :: Char, rCor  :: Char
+}
+instance Read TreeSymbols where
+  readsPrec _ [lTerm, rTerm, bTerm, hBar, vBar, lCor, rCor] =
+    [ (TS lTerm rTerm bTerm hBar vBar lCor rCor, "") ]
+  readsPrec _ _ = [] 
+
+instance Show TreeSymbols where
+  show (TS lTerm rTerm bTerm hBar vBar lCor rCor) =
+    [lTerm, rTerm, bTerm, hBar, vBar, lCor, rCor ]
+
+-- Symbols for tree formatting
+utfSym :: TreeSymbols
+-- utfSym = read "╢╟╧─│┌┐"
+utfSym = read "╢╟│─│┌┐"
+
+-- Test trees
+--       ┌───╢ 3 ╟───┐
+--       │           │
+--       1 ╟─┐       4
+--           │
+--           2
+tree1 :: Tree Int
+tree1 = Branch (Branch Nil 1 (Branch Nil 2 Nil)) 3 (Branch Nil 4 Nil)
+tree2 :: Tree [Char]
+tree2 = Branch (Branch Nil "Hello" (Branch Nil "World" Nil)) "I'm" (Branch Nil "here" Nil)
+
+maxLeafLength :: Show a => Tree a -> Int
+maxLeafLength t = maximum $ length . show <$> t
+
+leafLength :: Show a => Tree a -> Int
+leafLength t =
+  let mll = maxLeafLength t
+  in  if odd mll then mll + 2 else mll + 3
+
+nSpaces :: Int -> [Char]
+nSpaces = flip replicate ' '
+
+formatLeaf :: Int -> String -> String
+formatLeaf n s =
+  let l    = length s      -- length of the input string
+      add  = max (n - l) 0 -- how many spaces should we add from left andd right
+      addL = div add 2
+      addR = (div add 2) + (mod add 2)
+  in nSpaces addL ++ s ++ nSpaces addR
