@@ -1,6 +1,7 @@
 module TreeSpec where
 
 import Tree
+import Data.Foldable
 import Test.Hspec ( describe, it, shouldBe, Spec )
 
 spec :: Spec
@@ -25,3 +26,9 @@ spec = do
 
       it "Level-order fold" $
         foldr (:) [] (LevelO tree) `shouldBe` [3,1,4,2]
+  
+  describe "Question 2.2.3" $
+    do
+      let tree = Branch (Branch Nil 1 Nil) 2 (Branch (Branch Nil 3 Nil) 4 (Branch Nil 5 Nil))
+      it "sequenceA_ on preordered tree" $
+        fst (sequenceA_ $ (\x -> (show x,x)) <$> PreO tree) `shouldBe` "21435"
