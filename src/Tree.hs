@@ -118,7 +118,7 @@ formatLeaf n s =
   let l    = length s      -- length of the input string
       add  = max (n - l) 0 -- how many spaces should we add from left andd right
       addL = div add 2
-      addR = (div add 2) + (mod add 2)
+      addR = div add 2 + mod add 2
   in nSpaces addL ++ s ++ nSpaces addR
 
 instance Functor Preorder where

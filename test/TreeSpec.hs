@@ -1,7 +1,11 @@
 module TreeSpec where
 
 import Tree
-import Data.Foldable
+    ( Levelorder(LevelO),
+      Postorder(PostO),
+      Preorder(PreO),
+      Tree(Nil, Branch) )
+import Data.Foldable ( sequenceA_ )
 import Test.Hspec ( describe, it, shouldBe, Spec )
 
 spec :: Spec
@@ -10,11 +14,10 @@ spec = do
     do
       let tree = Branch (Branch Nil 1 (Branch Nil 2 Nil)) 3 (Branch Nil 4 Nil)
     --   Tree structure:
-    --       3
-    --     /   \
-    --    1     4
-    --     \
-    --       2
+    --        ┌── 3 ──┐
+    --      ⋄ 1 ┐   ⋄ 4 ⋄
+    --        ⋄ 2 ⋄        
+    
       it "In-order fold" $
         foldr (:) [] tree `shouldBe` [1,2,3,4]
         
