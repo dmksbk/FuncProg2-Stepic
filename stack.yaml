@@ -42,7 +42,7 @@ packages:
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #
 extra-deps:
-  - hspec-2.7.1
+  - hspec-2.7.4
   - git: https://github.com/muesli4/table-layout.git
     commit: f243821a3e5c5935903bb03fee1992c6109be3c2
   - data-default-instances-base-0.1.0.1@sha256:985a13d7103e45a65f06f277b735ef025636014f0d29dd6de998bc7628e09be9,509
